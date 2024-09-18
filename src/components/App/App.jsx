@@ -9,11 +9,11 @@ import { refreshUser } from '../../redux/auth/operations';
 // import ContactList from '../ContactList/ContactList';
 // import SearchBox from '../SearchBox/SearchBox';
 // import css from './App.module.css';
-const HomePage = lazy(() => import('../../pages/HomePage'));
-const NotFoundPage = lazy(() => import('../../pages/NotFoundPage'));
-const LoginPage = lazy(() => import('../../pages/LoginPage')); 
-const RegistrationPage = lazy(() => import('../../pages/RegistrationPage')); 
-const ContactsPage = lazy(() => import('../../pages/ContactsPage'));
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'));
+const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage')); 
+const RegistrationPage = lazy(() => import('../../pages/RegistrationPage/RegistrationPage')); 
+const ContactsPage = lazy(() => import('../../pages/ContactsPage/ContactsPage'));
 
 import Navigation from '../Navigation/Navigation';
 import Layout from '../Layout/Layout';

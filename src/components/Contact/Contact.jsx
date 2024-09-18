@@ -13,7 +13,7 @@ const Contact = ({ contact }) => {
         <span className={css.dataText}><FaPhone /> {contact.number}</span>
       </div>
           
-      <button type="button" className={css.contactBtnDel} onClick={() => dispatch(deleteContact(contact.id))}>Delete</button>
+      <button type="button" className={css.contactBtnDel} onClick={() => dispatch(deleteContact(contact.id))}> Delete </button>
     </li>
   )
 };
