@@ -1,22 +1,32 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { register } from '../../redux/auth/operations'; 
+import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Перевірка на логін
 import css from './RegistrationForm.module.css'; 
-
-
-const RegistrationSchema = Yup.object().shape({
-  name: Yup.string().min(3, 'Занадто коротке!').required('Обов’язково'),
-  email: Yup.string().email('Невірний email').required('Обов’язково'),
-  password: Yup.string().min(6, 'Пароль має бути мінімум 6 символів').required('Обов’язково'),
-});
+import { useEffect } from 'react';
 
 const RegistrationForm = () => {
-  const dispatch = useDispatch(); 
-  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsLoggedIn); // Перевірка статусу логіну
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/contacts'); // Перенаправляємо на сторінку контактів після реєстрації
+    }
+  }, [isLoggedIn, navigate]);
+
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(register(values)); 
-    resetForm(); 
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        resetForm(); // Очищаємо форму після успішної реєстрації
+      })
+      .catch((error) => {
+        console.error('Помилка реєстрації:', error);
+      });
   };
 
   return (
@@ -24,17 +34,20 @@ const RegistrationForm = () => {
       <h2 className={css.title}>Registration</h2>
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
-        validationSchema={RegistrationSchema}
+        validationSchema={Yup.object({
+          name: Yup.string().min(3, 'Занадто коротке!').required('Обов’язково'),
+          email: Yup.string().email('Невірний email').required('Обов’язково'),
+          password: Yup.string().min(6, 'Пароль має бути мінімум 6 символів').required('Обов’язково'),
+        })}
         onSubmit={handleSubmit}
       >
-              <Form className={css.form}>
-
+        <Form className={css.form}>
           <label className={css.label}>
-            Name 
+            Name
             <Field className={css.inputForm} type="text" name="name" />
             <ErrorMessage name="name" component="div" className={css.error} />
           </label>
-          
+
           <label className={css.label}>
             Email
             <Field className={css.inputForm} type="email" name="email" />
@@ -48,7 +61,7 @@ const RegistrationForm = () => {
           </label>
 
           <button className={css.submitButton} type="submit">
-            Registrating
+            Register
           </button>
         </Form>
       </Formik>

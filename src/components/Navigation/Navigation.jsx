@@ -1,55 +1,30 @@
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styles from './Navigation.module.css';
-// import { useSelector } from 'react-redux';
-
 import UserMenu from '../UserMenu/UserMenu';
-// import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Селектор для статусу авторизації
 
-export const Navigation = () => {
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
+const Navigation = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn); // Отримуємо статус логіну
+
   return (
-    <>
-      <header className={styles.header}>
-        <div className={styles.wrapper}>
-          {/* <nav>
-      <NavLink className={styles.link} to="/">
-        Home
-      </NavLink>
-      {isLoggedIn && (
-        <NavLink className={styles.link} to="/tasks">
-          Tasks
-        </NavLink>
-      )}
-    </nav> */}
-
-          <nav>
-            <ul className={styles.nav}>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : styles.link
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contacts"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : styles.link
-                  }
-                >
-                  Contacts
-                </NavLink>
-              </li>
+    <header className={styles.header}>
+      <nav className={styles.nav}>
+        <ul className={styles.navList}>
+          <li>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? styles.active : styles.link)}
+            >
+              Home
+            </NavLink>
+          </li>
+          {!isLoggedIn && ( // Показуємо Login і Registration, якщо користувач не залогінений
+            <>
               <li>
                 <NavLink
                   to="/login"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : styles.link
-                  }
+                  className={({ isActive }) => (isActive ? styles.active : styles.link)}
                 >
                   Login
                 </NavLink>
@@ -57,20 +32,32 @@ export const Navigation = () => {
               <li>
                 <NavLink
                   to="/register"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : styles.link
-                  }
+                  className={({ isActive }) => (isActive ? styles.active : styles.link)}
                 >
-                  Register
+                  Registration
                 </NavLink>
               </li>
-            </ul>
-            <UserMenu />
-          </nav>
-        </div>
-      </header>
-    </>
-  )
-}
+            </>
+          )}
+          {isLoggedIn && ( // Показуємо Contacts, якщо користувач залогінений
+            <>
+              <li>
+                <NavLink
+                  to="/contacts"
+                  className={({ isActive }) => (isActive ? styles.active : styles.link)}
+                >
+                  Contacts
+                </NavLink>
+              </li>
+              <li>
+                <UserMenu /> {/* Відображаємо меню користувача (логін, лог-аут) */}
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
+    </header>
+  );
+};
 
-export default Navigation
+export default Navigation;

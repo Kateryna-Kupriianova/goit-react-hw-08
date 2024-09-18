@@ -15,7 +15,12 @@
     gap: 20px;
     list-style: none;
 }
-
+.navList {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+}
 .link {
     display: inline-flex;
     align-items: center;

@@ -4,9 +4,9 @@ import AppBar from '../AppBar/AppBar';
 const Layout = () => {
   return (
     <>
-      <AppBar />
+      <AppBar /> {/* Тут розміщується загальна навігація */}
       <main>
-        <Outlet /> {/* Тут будуть рендеритись всі дочірні маршрути */}
+        <Outlet /> {/* Тут будуть рендеритись дочірні маршрути */}
       </main>
     </>
   );

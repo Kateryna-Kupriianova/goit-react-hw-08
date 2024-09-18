@@ -73,9 +73,14 @@ export const selectNameFilter = (state) => state.filters.name.toLowerCase();
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
   (contacts, filter) => {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter) ||
+      contact.number.includes(normalizedFilter) // Додаємо фільтрацію за номером
     );
   }
-)
+);
+export const setName = (state) => state.contact.name;
+
+export const setNumber = (state) => state.contact.number;
 export default contactsSlice.reducer;

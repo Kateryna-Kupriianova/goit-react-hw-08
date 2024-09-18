@@ -1,25 +1,32 @@
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // Імпортуємо useNavigate
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { logIn } from '../../redux/auth/operations';
+import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Селектор для перевірки статусу логіну
 import css from './LoginForm.module.css';
+import { useEffect } from 'react';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Ініціалізуємо useNavigate
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(selectIsLoggedIn); // Перевіряємо статус логіну
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/contacts'); // Перенаправляємо користувача на сторінку контактів після успішного логіну
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(logIn(values))
       .unwrap()
       .then(() => {
-        navigate('/contacts'); // Перенаправляємо на сторінку контактів після успішного логіну
+        resetForm(); // Очищаємо форму після успішного логіну
       })
       .catch((error) => {
-        console.error('Помилка логіну:', error); // Логування помилки
+        console.error('Помилка логіну:', error);
       });
-
-    resetForm();
   };
 
   return (
