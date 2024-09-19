@@ -1,6 +1,6 @@
 import { useState } from 'react'; 
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contacts/contactsOps'; 
+import { addContact } from '../../redux/contacts/operations'; 
 import * as Yup from 'yup'; 
 import { Button, TextField } from '@mui/material';
 
