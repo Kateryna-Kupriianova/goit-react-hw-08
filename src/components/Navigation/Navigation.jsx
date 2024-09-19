@@ -1,30 +1,30 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styles from './Navigation.module.css';
+import css from './Navigation.module.css';
 import UserMenu from '../UserMenu/UserMenu';
-import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Селектор для статусу авторизації
+import { selectIsLoggedIn } from '../../redux/auth/selectors'; 
 
 const Navigation = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn); // Отримуємо статус логіну
+  const isLoggedIn = useSelector(selectIsLoggedIn); 
 
   return (
-    <header className={styles.header}>
-      <nav className={styles.nav}>
-        <ul className={styles.navList}>
+    <header className={css.header}>
+      <nav className={css.nav}>
+        <ul className={css.navList}>
           <li>
             <NavLink
               to="/"
-              className={({ isActive }) => (isActive ? styles.active : styles.link)}
+              className={({ isActive }) => (isActive ? css.active : css.link)}
             >
               Home
             </NavLink>
           </li>
-          {!isLoggedIn && ( // Показуємо Login і Registration, якщо користувач не залогінений
+          {!isLoggedIn && ( 
             <>
               <li>
                 <NavLink
                   to="/login"
-                  className={({ isActive }) => (isActive ? styles.active : styles.link)}
+                  className={({ isActive }) => (isActive ? css.active : css.link)}
                 >
                   Login
                 </NavLink>
@@ -32,25 +32,25 @@ const Navigation = () => {
               <li>
                 <NavLink
                   to="/register"
-                  className={({ isActive }) => (isActive ? styles.active : styles.link)}
+                  className={({ isActive }) => (isActive ? css.active : css.link)}
                 >
                   Registration
                 </NavLink>
               </li>
             </>
           )}
-          {isLoggedIn && ( // Показуємо Contacts, якщо користувач залогінений
+          {isLoggedIn && ( 
             <>
               <li>
                 <NavLink
                   to="/contacts"
-                  className={({ isActive }) => (isActive ? styles.active : styles.link)}
+                  className={({ isActive }) => (isActive ? css.active : css.link)}
                 >
                   Contacts
                 </NavLink>
               </li>
               <li>
-                <UserMenu /> {/* Відображаємо меню користувача (логін, лог-аут) */}
+                <UserMenu /> 
               </li>
             </>
           )}

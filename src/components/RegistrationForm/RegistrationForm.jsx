@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { register } from '../../redux/auth/operations'; 
-import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Перевірка на логін
+import { selectIsLoggedIn } from '../../redux/auth/selectors'; 
 import css from './RegistrationForm.module.css'; 
 import { useEffect } from 'react';
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(selectIsLoggedIn); // Перевірка статусу логіну
+  const isLoggedIn = useSelector(selectIsLoggedIn); 
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/contacts'); // Перенаправляємо на сторінку контактів після реєстрації
+      navigate('/contacts'); 
     }
   }, [isLoggedIn, navigate]);
 
@@ -22,7 +22,7 @@ const RegistrationForm = () => {
     dispatch(register(values))
       .unwrap()
       .then(() => {
-        resetForm(); // Очищаємо форму після успішної реєстрації
+        resetForm(); 
       })
       .catch((error) => {
         console.error('Помилка реєстрації:', error);

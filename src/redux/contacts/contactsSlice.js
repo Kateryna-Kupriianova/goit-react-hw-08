@@ -76,7 +76,7 @@ export const selectFilteredContacts = createSelector(
     const normalizedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter) ||
-      contact.number.includes(normalizedFilter) // Додаємо фільтрацію за номером
+      contact.number.includes(normalizedFilter) 
     );
   }
 );

@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { logIn } from '../../redux/auth/operations';
-import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Селектор для перевірки статусу логіну
+import { selectIsLoggedIn } from '../../redux/auth/selectors'; 
 import css from './LoginForm.module.css';
 import { useEffect } from 'react';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoggedIn = useSelector(selectIsLoggedIn); // Перевіряємо статус логіну
+  const isLoggedIn = useSelector(selectIsLoggedIn); 
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/contacts'); // Перенаправляємо користувача на сторінку контактів після успішного логіну
+      navigate('/contacts'); 
     }
   }, [isLoggedIn, navigate]);
 
@@ -22,7 +22,7 @@ const LoginForm = () => {
     dispatch(logIn(values))
       .unwrap()
       .then(() => {
-        resetForm(); // Очищаємо форму після успішного логіну
+        resetForm(); 
       })
       .catch((error) => {
         console.error('Помилка логіну:', error);

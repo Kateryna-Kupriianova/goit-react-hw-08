@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import { refreshUser } from '../../redux/auth/operations'; // Операція для оновлення користувача
-import { selectIsRefreshing } from '../../redux/auth/selectors'; // Селектор для перевірки статусу оновлення
+import { refreshUser } from '../../redux/auth/operations'; 
+import { selectIsRefreshing } from '../../redux/auth/selectors'; 
 import Layout from '../Layout/Layout';
 import HomePage from '../../pages/HomePage/HomePage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
@@ -12,10 +12,10 @@ import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 
 const App = () => {
   const dispatch = useDispatch();
-  const isRefreshing = useSelector(selectIsRefreshing); // Перевіряємо статус оновлення
+  const isRefreshing = useSelector(selectIsRefreshing); 
 
   useEffect(() => {
-    dispatch(refreshUser()); // Оновлюємо дані користувача при першому завантаженні
+    dispatch(refreshUser()); 
   }, [dispatch]);
 
   if (isRefreshing) {
