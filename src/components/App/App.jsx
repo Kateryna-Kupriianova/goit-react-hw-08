@@ -9,7 +9,8 @@ import LoginPage from '../../pages/LoginPage/LoginPage';
 import RegistrationPage from '../../pages/RegistrationPage/RegistrationPage';
 import ContactsPage from '../../pages/ContactsPage/ContactsPage';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
-
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import RestrictedRoute from '../RestrictedRoute/RestrictedRoute';
 const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing); 
@@ -19,7 +20,7 @@ const App = () => {
   }, [dispatch]);
 
   if (isRefreshing) {
-    return <p>Loading...</p>; // Показуємо індикатор завантаження під час оновлення
+    return <p>Loading...</p>; 
   }
 
   return (
@@ -27,9 +28,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegistrationPage />} />
-          <Route path="contacts" element={<ContactsPage />} />
+          <Route path="login" element={<RestrictedRoute component={LoginPage} />} />
+          <Route path="register" element={<RestrictedRoute component={RegistrationPage}/>} />
+          <Route path="contacts" element={<PrivateRoute component={ContactsPage} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

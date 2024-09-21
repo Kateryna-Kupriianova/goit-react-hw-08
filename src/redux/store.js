@@ -7,9 +7,9 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-    key: 'root',
+    key: 'auth',
     storage,
-    whitelist: ['auth', 'contacts'], 
+    whitelist: ['token'], 
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
